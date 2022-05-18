@@ -87,9 +87,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         ),
 
         //list of food & images
-
-
-          ListView.builder(shrinkWrap: true,physics: NeverScrollableScrollPhysics(),itemCount: 10,itemBuilder: (context,index){
+        ListView.builder(shrinkWrap: true,physics: NeverScrollableScrollPhysics(),itemCount: 10,itemBuilder: (context,index){
             return Container(
               margin: EdgeInsets.only(left: Dimensions.width20,right: Dimensions.width20,bottom: Dimensions.height10),
               child: Row(

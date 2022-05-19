@@ -19,7 +19,7 @@ class Product {
     if (json['products'] != null) {
       _products = <ProductModel>[];
       json['products'].forEach((v) {
-        _products!.add( ProductModel.fromJson(v));
+        _products.add( ProductModel.fromJson(v));
       });
     }
   }
@@ -39,7 +39,7 @@ class ProductModel {
   int? typeId;
 
   ProductModel(
-      {this.id,
+      {  this.id,
         this.name,
         this.description,
         this.price,

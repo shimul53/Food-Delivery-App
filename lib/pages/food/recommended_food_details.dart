@@ -47,6 +47,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                       if(controller.totalItems>=1){
                         Get.toNamed(RouteHelper.getCartPage());
                       }
+                      Get.toNamed(RouteHelper.getCartPage());
 
                     },
                     child: Stack(

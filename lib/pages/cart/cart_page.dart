@@ -182,6 +182,8 @@ class CartPage extends StatelessWidget {
                 onTap: (){
 
                  // popularProduct.addItem(product);
+                  print("tapped");
+                  cartController.addToHistory();
 
                 },
                 child: Container(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/base/no_data_page.dart';
+import 'package:food_delivery_app/controllers/auth_controller.dart';
 import 'package:food_delivery_app/controllers/cart_controller.dart';
 import 'package:food_delivery_app/controllers/popular_product_controller.dart';
 import 'package:food_delivery_app/controllers/recommended_product_controller.dart';
@@ -193,8 +194,13 @@ class CartPage extends StatelessWidget {
                 onTap: (){
 
                   // popularProduct.addItem(product);
+                 if(Get.find<AuthController>().userLoggedIn()){
+                   cartController.addToHistory();
+                 }else{
+                   Get.toNamed(RouteHelper.getSignInPage());
 
-                  cartController.addToHistory();
+                 }
+
 
                 },
                 child: Container(

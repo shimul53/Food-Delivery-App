@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/base/custom_loader.dart';
 import 'package:food_delivery_app/controllers/auth_controller.dart';
 import 'package:food_delivery_app/controllers/cart_controller.dart';
+import 'package:food_delivery_app/controllers/location_controller.dart';
 import 'package:food_delivery_app/controllers/user_controller.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/colors.dart';
@@ -47,7 +48,7 @@ class AccountPage extends StatelessWidget {
                   child: Column(
                     children: [
                       //name
-                      AccountWidget(bigText: BigText(text: userController.userModel.name,),
+                      AccountWidget(bigText: BigText(text: userController.userModel!.name,),
                         appIcon: AppIcon(icon: Icons.person,
                           backgroundColor: AppColors.mainColor,
                           iconColor: Colors.white,
@@ -56,7 +57,7 @@ class AccountPage extends StatelessWidget {
                       SizedBox(height:Dimensions.height20 ,),
 
                       //phone
-                      AccountWidget(bigText: BigText(text: userController.userModel.phone,),
+                      AccountWidget(bigText: BigText(text: userController.userModel!.phone,),
                         appIcon: AppIcon(icon: Icons.phone,
                           backgroundColor: AppColors.yellowColor,
                           iconColor: Colors.white,
@@ -65,7 +66,7 @@ class AccountPage extends StatelessWidget {
                       SizedBox(height:Dimensions.height20 ,),
 
                       //email
-                      AccountWidget(bigText: BigText(text: userController.userModel.email,),
+                      AccountWidget(bigText: BigText(text: userController.userModel!.email,),
                         appIcon: AppIcon(icon: Icons.email,
                           backgroundColor: AppColors.yellowColor,
                           iconColor: Colors.white,
@@ -74,12 +75,33 @@ class AccountPage extends StatelessWidget {
                       SizedBox(height:Dimensions.height20 ,),
 
                       //address
-                      AccountWidget(bigText: BigText(text: "Fill in your address",),
-                        appIcon: AppIcon(icon: Icons.location_on,
-                          backgroundColor: AppColors.yellowColor,
-                          iconColor: Colors.white,
-                          iconSize: Dimensions.height10*5/2,
-                          size: Dimensions.height10*5,),),
+                      GetBuilder<LocationController>(builder: (locationController){
+                        if(_userLoggedIn&&locationController.addressList.isEmpty){
+                          return GestureDetector(
+                            onTap: (){
+                              Get.offNamed(RouteHelper.getAddressPage());
+                            },
+                            child: AccountWidget(bigText: BigText(text: "Fill in your address",),
+                              appIcon: AppIcon(icon: Icons.location_on,
+                                backgroundColor: AppColors.yellowColor,
+                                iconColor: Colors.white,
+                                iconSize: Dimensions.height10*5/2,
+                                size: Dimensions.height10*5,),),
+                          );
+                        }else{
+                          return GestureDetector(
+                            onTap: (){
+                              Get.offNamed(RouteHelper.getAddressPage());
+                            },
+                            child: AccountWidget(bigText: BigText(text: "Your Address",),
+                              appIcon: AppIcon(icon: Icons.location_on,
+                                backgroundColor: AppColors.yellowColor,
+                                iconColor: Colors.white,
+                                iconSize: Dimensions.height10*5/2,
+                                size: Dimensions.height10*5,),),
+                          );
+                        }
+                      }),
                       SizedBox(height:Dimensions.height20 ,),
 
                       //message
@@ -97,9 +119,10 @@ class AccountPage extends StatelessWidget {
                             Get.find<AuthController>().clearSharedData();
                             Get.find<CartController>().clear();
                             Get.find<CartController>().clearCartHistory();
+                            Get.find<LocationController>().clearAddressList();
                             Get.offNamed(RouteHelper.getSignInPage());
                           }else{
-                            print("you logged out");
+                            Get.offNamed(RouteHelper.getSignInPage());
                           }
 
 
